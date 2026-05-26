@@ -84,3 +84,24 @@ font-size:16px;
 padding:20px;
 font-size:30px;
 }
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+}
+
+#movies{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:center;
+}
+
+.movie{
+    width:200px;
+}
+
+.movie img{
+    width:100%;
+    border-radius:10px;
+}
