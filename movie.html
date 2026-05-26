@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تفاصيل الفيلم</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="movie-details"></div>
+
+<script>
+
+const API_KEY = "ضع_API_هنا";
+
+const params = new URLSearchParams(window.location.search);
+
+const movieId = params.get("id");
+
+async function getMovie() {
+
+    const res = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=ar`
+    );
+
+    const movie = await res.json();
+
+    showMovie(movie);
+
+}
+
+function showMovie(movie) {
+
+    const details = document.getElementById("movie-details");
+
+    details.innerHTML = `
+
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
+
+        <h1>${movie.title}</h1>
+
+        <p>${movie.overview}</p>
+
+        <p>⭐ ${movie.vote_average}</p>
+
+    `;
+}
+
+getMovie();
+
+</script>
+
+</body>
+</html>
