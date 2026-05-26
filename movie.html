@@ -49,7 +49,81 @@ function showMovie(movie) {
 
 getMovie();
 
+<script>
+
+const API_KEY = "ضع_API_هنا";
+
+const params = new URLSearchParams(window.location.search);
+
+const movieId = params.get("id");
+
+async function getMovie() {
+
+    // معلومات الفيلم
+    const movieRes = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=ar`
+    );
+
+    const movie = await movieRes.json();
+
+    // التريلر
+    const videoRes = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`
+    );
+
+    const videoData = await videoRes.json();
+
+    const trailer = videoData.results.find(
+        vid => vid.type === "Trailer"
+    );
+
+    showMovie(movie, trailer);
+
+}
+
+function showMovie(movie, trailer) {
+
+    const details = document.getElementById("movie-details");
+
+    details.innerHTML = `
+
+        <div class="movie-page">
+
+            <img 
+            src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
+            >
+
+            <h1>${movie.title}</h1>
+
+            <p>${movie.overview}</p>
+
+            <p>⭐ ${movie.vote_average}</p>
+
+            ${
+                trailer
+                ?
+                `
+                <iframe
+                    width="800"
+                    height="450"
+                    src="https://www.youtube.com/embed/${trailer.key}"
+                    frameborder="0"
+                    allowfullscreen>
+                </iframe>
+                `
+                :
+                "<p>لا يوجد تريلر</p>"
+            }
+
+        </div>
+
+    `;
+}
+
+getMovie();
+
 </script>
+3. أضف هذا داخل style.css
 
 </body>
 </html>
