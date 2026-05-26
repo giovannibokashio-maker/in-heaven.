@@ -20,10 +20,13 @@ function showMovies(movies) {
 
         movieEl.classList.add("movie");
 
-        movieEl.innerHTML = `
-            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
-            <h3>${movie.title}</h3>
-        `;
+       movieEl.innerHTML = `
+    <a href="movie.html?id=${movie.id}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}">
+    </a>
+
+    <h3>${movie.title}</h3>
+`;
 
         moviesBox.appendChild(movieEl);
     });
